@@ -1,3 +1,13 @@
 <ng-container>
   <h2>My page</h2>
+
+  <div>
+    <h3>Cards</h3>
+
+    <ul>
+      @for (card of cards; track card.id) {
+        <li>{{ card.cardDetails }}</li>
+      }
+    </ul>
+  </div>
 </ng-container>
