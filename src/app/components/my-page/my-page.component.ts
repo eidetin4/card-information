@@ -14,12 +14,16 @@ export class MyPageComponent implements OnInit {
   protected readonly cards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
 
   ngOnInit(): void {
+    this.getAllCardDetails();
+  }
+
+  getAllCardDetails(): void {
     this.cardInformationService.getAllCardDetails().subscribe({
       next: (response: GetCardDetails[]): void => {
         this.cards.set(response);
       },
       error: (error: Error): void => {
-        console.error('Error fetching card information:', error.message);
+        console.error('Error fetching card details:', error.message);
       }
     });
   }

@@ -2,14 +2,14 @@
   <h2>My page</h2>
 
   <div>
-    <h3>Cards</h3>
+    <h3>Your cards</h3>
 
     <ul>
       @for (card of cards(); track card.id) {
         @if (card.active) {
           <li>{{ card.issuer }}: {{ card.cardDetails }}</li>
         } @else {
-          <li style="color: gray">{{ card.issuer }}: {{ card.cardDetails }}</li>
+          <li style="color: gray">{{ card.issuer }}: {{ card.cardDetails }} (inactive)</li>
         }
       }
     </ul>
