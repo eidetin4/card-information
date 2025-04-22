@@ -1,28 +1,28 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {AddCardInformation, GetCardInformation} from '../models/card-information-models';
+import {AddCardDetails, GetCardDetails} from '../models/card-details-models';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CardInformationService {
+export class CardDetailsService {
   private baseUrl: string = 'https://67f908a2094de2fe6ea03315.mockapi.io/case-tina/v2/updatePayMethodDetails';
 
   private http: HttpClient = inject(HttpClient);
 
-  getAllCards(): Observable<GetCardInformation[]> {
-    return this.http.get<GetCardInformation[]>(this.baseUrl);
+  getAllCardDetails(): Observable<GetCardDetails[]> {
+    return this.http.get<GetCardDetails[]>(this.baseUrl);
   }
 
-  getCard(cardId: string): Observable<GetCardInformation> {
+  getCardDetails(cardId: string): Observable<GetCardDetails> {
     const url: string = `${this.baseUrl}/${cardId}`;
 
-    return this.http.get<GetCardInformation>(url);
+    return this.http.get<GetCardDetails>(url);
   }
 
-  addCard(newCard: AddCardInformation): Observable<void> {
+  addCardDetails(newCard: AddCardDetails): Observable<void> {
     return this.http.post<void>(this.baseUrl, newCard);
   }
 }
