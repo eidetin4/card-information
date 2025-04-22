@@ -8,7 +8,7 @@ export interface GetCardInformation {
   id: number;
 }
 
-export interface UpdateCardInformation {
+export interface AddCardInformation {
   currency: string;
   cardDetails: number;
   expiryDate: string;
