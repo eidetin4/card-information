@@ -5,8 +5,12 @@
     <h3>Cards</h3>
 
     <ul>
-      @for (card of cards; track card.id) {
-        <li>{{ card.cardDetails }}</li>
+      @for (card of cards(); track card.id) {
+        @if (card.active) {
+          <li>{{ card.issuer }}: {{ card.cardDetails }}</li>
+        } @else {
+          <li style="color: gray">{{ card.issuer }}: {{ card.cardDetails }}</li>
+        }
       }
     </ul>
   </div>
