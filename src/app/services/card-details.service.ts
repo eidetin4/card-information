@@ -16,7 +16,7 @@ export class CardDetailsService {
     return this.http.get<GetCardDetails[]>(this.baseUrl);
   }
 
-  getCardDetails(cardId: string): Observable<GetCardDetails> {
+  getCardDetails(cardId: number): Observable<GetCardDetails> {
     const url: string = `${this.baseUrl}/${cardId}`;
 
     return this.http.get<GetCardDetails>(url);
