@@ -16,8 +16,8 @@ export class CardInformationService {
     return this.http.get<GetCardInformation[]>(this.baseUrl);
   }
 
-  getCard(id: string): Observable<GetCardInformation> {
-    const url: string = `${this.baseUrl}/${id}`;
+  getCard(cardId: string): Observable<GetCardInformation> {
+    const url: string = `${this.baseUrl}/${cardId}`;
 
     return this.http.get<GetCardInformation>(url);
   }
