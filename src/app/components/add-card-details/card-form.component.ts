@@ -64,7 +64,7 @@ export class CardFormComponent {
         next: () => {
           this.showSuccessMessage = true;
           this.errorMessage = '';
-          this.cardDetailsForm.reset({ currency: 'NOK' });
+          this.cardDetailsForm.reset({ currency: 'NOK', issuer: '' });
           this.cardAdded.emit();
 
           setTimeout(() => {
