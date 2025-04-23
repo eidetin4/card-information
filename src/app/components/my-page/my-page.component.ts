@@ -13,7 +13,7 @@ export class MyPageComponent implements OnInit {
 
   private cardInformationService: CardDetailsService = inject(CardDetailsService);
 
-  protected readonly cards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
+  protected readonly activeCards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
 
   ngOnInit(): void {
     this.getAllCards();
@@ -22,7 +22,7 @@ export class MyPageComponent implements OnInit {
   getAllCards(): void {
     this.cardInformationService.getAllCards().subscribe({
       next: (response: GetCardDetails[]): void => {
-        this.cards.set(response);
+        this.activeCards.set(response.filter((card: GetCardDetails) => card.active));
       },
       error: (error: Error): void => {
         console.error('Error fetching card details:', error.message);

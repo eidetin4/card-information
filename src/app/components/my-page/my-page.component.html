@@ -5,17 +5,15 @@
   <p>Email: navn&#64;gmail.com</p>
 
   <div>
-    <h3>Dine kort</h3>
+    <h3>Betalingskort:</h3>
 
-    @if (cards().length > 0) {
-      @for (card of cards(); track card.id) {
-        @if (card.active) {
-          <div class="card active">
-            <div class="card-issuer">{{ card.issuer }}</div>
-            <div class="card-number">**** **** **** {{ card.cardDetails.toString().slice(-4) }}</div>
-            <div class="card-expiry">Utløper: {{ card.expiryDate }}</div>
-          </div>
-        }
+    @if (activeCards().length > 0) {
+      @for (card of activeCards(); track card.id) {
+        <div class="card active">
+          <div class="card-issuer">{{ card.issuer }}</div>
+          <div class="card-number">**** **** **** {{ card.cardDetails.toString().slice(-4) }}</div>
+          <div class="card-expiry">Utløper: {{ card.expiryDate }}</div>
+        </div>
       }
     } @else {
       <ng-template>
