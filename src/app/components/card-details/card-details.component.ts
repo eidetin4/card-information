@@ -1,9 +1,13 @@
 import {Component, inject, input, InputSignal, OnInit, signal, WritableSignal} from '@angular/core';
 import {CardDetailsService} from '../../services/card-details.service';
 import {GetCardDetails} from '../../models/card-details-models';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-card-details',
+  imports: [
+    DatePipe
+  ],
   templateUrl: './card-details.component.html'
 })
 
@@ -20,7 +24,7 @@ export class CardDetailsComponent implements OnInit {
   }
 
   getCardDetails(): void {
-    this.cardDetailService.getCardDetails(this.cardId()).subscribe({
+    this.cardDetailService.getCard(this.cardId()).subscribe({
       next: (response: GetCardDetails): void => {
         this.cardDetails.set(response);
       },

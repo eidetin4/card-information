@@ -2,9 +2,9 @@
   <h2>Card details</h2>
 
   <div>
-    <p>Issuer: {{ cardDetails().issuer }}</p>
-    <p>Currency: {{cardDetails().currency}}</p>
-    <p>Card details: {{ cardDetails().cardDetails}}</p>
-    <p>{{ cardDetails().expiryDate }}</p> <p>{{ cardDetails().CVV }}</p>
+    <p>Utsteder: {{ cardDetails().issuer }}</p>
+    <p>Valuta: {{cardDetails().currency}}</p>
+    <p>Kortnummer: {{ cardDetails().cardDetails}}</p>
+    <p>Utgår: {{ cardDetails().expiryDate | date }}</p>
   </div>
 </ng-container>
