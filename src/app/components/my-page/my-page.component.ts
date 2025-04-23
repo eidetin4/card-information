@@ -26,7 +26,7 @@ export class MyPageComponent implements OnInit {
   }
 
   protected getAllCards(): void {
-    this.cardInformationService.getAllCards().subscribe({
+    this.cardInformationService.getAllCardsWithoutDuplicates().subscribe({
       next: (response: GetCardDetails[]): void => {
         this.activeCards.set(response.filter((card: GetCardDetails) => card.active));
 
