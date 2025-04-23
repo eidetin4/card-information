@@ -12,17 +12,17 @@ export class CardDetailsService {
 
   private http: HttpClient = inject(HttpClient);
 
-  getAllCardDetails(): Observable<GetCardDetails[]> {
+  getAllCards(): Observable<GetCardDetails[]> {
     return this.http.get<GetCardDetails[]>(this.baseUrl);
   }
 
-  getCardDetails(cardId: number): Observable<GetCardDetails> {
+  getCard(cardId: number): Observable<GetCardDetails> {
     const url: string = `${this.baseUrl}/${cardId}`;
 
     return this.http.get<GetCardDetails>(url);
   }
 
-  addCardDetails(newCard: AddCardDetails): Observable<void> {
+  addCard(newCard: AddCardDetails): Observable<void> {
     return this.http.post<void>(this.baseUrl, newCard);
   }
 }
