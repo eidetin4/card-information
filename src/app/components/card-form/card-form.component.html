@@ -1,5 +1,24 @@
 <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
   <form [formGroup]="cardDetailsForm" (ngSubmit)="submitCard()">
+    <!-- Issuer -->
+    <div>
+      <label for="issuer" class="text-sm text-gray-700">Korttype</label>
+      <select
+        id="issuer"
+        formControlName="issuer"
+        class="border"
+      >
+        <option value="">Velg korttype</option>
+        <option value="VISA">VISA</option>
+        <option value="MASTERCARD">Mastercard</option>
+        <option value="AMEX">American Express</option>
+      </select>
+
+      @if (cardDetailsForm.get('issuer')?.invalid && cardDetailsForm.get('issuer')?.touched) {
+        <p class="text-red-500 text-sm mt-1">Vennligst velg korttype</p>
+      }
+    </div>
+
     <!-- Card Number -->
     <div>
       <label for="cardDetails" class="text-sm text-gray-700">Kortnummer</label>
@@ -51,25 +70,6 @@
         <p class="text-red-500 text-sm mt-1">
           {{ getCvvErrorMessage() }}
         </p>
-      }
-    </div>
-
-    <!-- Issuer -->
-    <div>
-      <label for="issuer" class="text-sm text-gray-700">Korttype</label>
-      <select
-        id="issuer"
-        formControlName="issuer"
-        class="border"
-      >
-        <option value="">Velg korttype</option>
-        <option value="VISA">VISA</option>
-        <option value="MASTERCARD">Mastercard</option>
-        <option value="AMEX">American Express</option>
-      </select>
-
-      @if (cardDetailsForm.get('issuer')?.invalid && cardDetailsForm.get('issuer')?.touched) {
-        <p class="text-red-500 text-sm mt-1">Vennligst velg korttype</p>
       }
     </div>
 
