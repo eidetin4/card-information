@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, EventEmitter, inject, Output} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CardValidationService} from '../../services/card-validation.service';
 import {CardDetailsService} from '../../services/card-details.service';
@@ -13,6 +13,8 @@ import {AddCardDetails} from '../../models/card-details-models';
 })
 
 export class CardFormComponent {
+
+  @Output() cardAdded: EventEmitter<void> = new EventEmitter<void>();
 
   private readonly formBuilder: FormBuilder = inject(FormBuilder);
   private readonly validator: CardValidationService = inject(CardValidationService);
@@ -63,16 +65,20 @@ export class CardFormComponent {
           this.showSuccessMessage = true;
           this.errorMessage = '';
           this.cardDetailsForm.reset({ currency: 'NOK' });
+          this.cardAdded.emit();
+
+          setTimeout(() => {
+            this.showSuccessMessage = false;
+          }, 3000);
         },
         error: (error: Error) => {
-          this.errorMessage = error.message;
+          this.errorMessage = 'Det oppsto en feil ved registrering av kortet. Vennligst prøv igjen.';
+          console.error('Error adding card:', error.message);
         },
         complete: () => {
           this.isSubmitting = false;
         }
       });
-    } else {
-      this.errorMessage = 'Fyll inn alle feltene korrekt.';
     }
   }
 }

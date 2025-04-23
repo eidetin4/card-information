@@ -7,7 +7,8 @@ import {CardDetailsComponent} from '../card-details/card-details.component';
 @Component({
   selector: 'app-my-page',
   imports: [
-    CardDetailsComponent
+    CardDetailsComponent,
+    CardFormComponent
   ],
   templateUrl: './my-page.component.html'
 })
