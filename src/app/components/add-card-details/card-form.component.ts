@@ -93,4 +93,18 @@ export class CardFormComponent {
 
     return '';
   }
+
+  getExpiryDateErrorMessage(): string {
+    const expiryDateControl = this.cardDetailsForm.get('expiryDate');
+
+    if (expiryDateControl?.hasError('required')) {
+      return 'Utløpsdato er påkrevd.';
+    } else if (expiryDateControl?.hasError('invalidExpiryDate')) {
+      return 'Ugyldig format. Må være MM/ÅÅ.';
+    } else if (expiryDateControl?.hasError('expiredCard')) {
+      return 'Kortet er utløpt.';
+    }
+
+    return '';
+  }
 }
