@@ -1,28 +1,19 @@
-<ng-container>
-  <h2>Min side</h2>
+<div class="container mx-auto p-4 max-w-2xl">
+  <h1 class="text-2xl font-bold mb-6">Min side</h1>
 
-  <p>Navn: Navn Navnesen</p>
-  <p>Email: navn&#64;gmail.com</p>
-
-  <div>
-    <h3>Betalingskort:</h3>
-
+  <div class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Ditt registrerte betalingskort</h2>
     @if (activeCards().length > 0) {
       @for (card of activeCards(); track card.id) {
-        <div class="card active">
-          <div class="card-issuer">{{ card.issuer }}</div>
-          <div class="card-number">**** **** **** {{ card.cardDetails.toString().slice(-4) }}</div>
-          <div class="card-expiry">Utløper: {{ card.expiryDate }}</div>
-        </div>
+        <app-card-details [card]="card"></app-card-details>
       }
     } @else {
-      <ng-template>
-        <p>Ingen betalingskort funnet.</p>
-      </ng-template>
+      <p class="text-gray-600">Du har ingen aktive betalingskort registrert.</p>
     }
   </div>
 
   <div>
-    <button>Legg til nytt kort</button>
+    <h2 class="text-xl font-semibold mb-4">Registrer nytt betalingskort</h2>
+<!--    <app-card-form (cardAdded)="getAllCards()"></app-card-form>-->
   </div>
-</ng-container>
+</div>

@@ -6,6 +6,9 @@ import {CardDetailsComponent} from '../card-details/card-details.component';
 
 @Component({
   selector: 'app-my-page',
+  imports: [
+    CardDetailsComponent
+  ],
   templateUrl: './my-page.component.html'
 })
 
