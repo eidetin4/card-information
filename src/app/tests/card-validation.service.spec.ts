@@ -34,6 +34,17 @@ describe('CardValidationService', () => {
       expect(service.cardNumberValidator()(control)).toEqual({ invalidCardNumber: 'Kortnummer må ha 16 siffer' });
     });
 
+    it('should return error for AMEX with incorrect length', () => {
+      const control = new FormControl('341111111111111'); // 15 digits, but AMEX requires 15
+      expect(service.cardNumberValidator()(control)).toBeNull();
+      
+      const controlTooLong = new FormControl('3411111111111111'); // 16 digits, AMEX requires 15
+      expect(service.cardNumberValidator()(controlTooLong)).toEqual({ invalidCardNumber: 'AMEX-kort må ha 15 siffer' });
+      
+      const controlTooShort = new FormControl('37111111111111'); // 14 digits, AMEX requires 15
+      expect(service.cardNumberValidator()(controlTooShort)).toEqual({ invalidCardNumber: 'AMEX-kort må ha 15 siffer' });
+    });
+
     it('should return error for invalid card number checksum', () => {
       const control = new FormControl('4111111111111110');
       expect(service.cardNumberValidator()(control)).toEqual({ invalidCardNumber: 'Ugyldig kortnummer' });
@@ -54,7 +65,7 @@ describe('CardValidationService', () => {
 
     it('should return error for past expiry date', () => {
       const control = new FormControl('01/20');
-      expect(service.expiryDateValidator()(control)).toEqual({ invalidExpiryDate: 'Kortet er utgått' });
+      expect(service.expiryDateValidator()(control)).toEqual({ expiredCard: 'Kortet er utgått' });
     });
 
     it('should return error for invalid format', () => {
@@ -114,6 +125,15 @@ describe('CardValidationService', () => {
       expect(service.cvvValidator()(control)).toEqual({ invalidCVV: 'CVV kan bare inneholde tall' });
     });
 
+    it('should return null when issuer is not selected', () => {
+      const group = new FormGroup({
+        issuer: new FormControl(''),
+        CVV: new FormControl('123')
+      });
+      const control = group.get('CVV')!;
+      expect(service.cvvValidator()(control)).toBeNull();
+    });
+
     it('should return null for empty input', () => {
       const group = new FormGroup({
         issuer: new FormControl('VISA'),
@@ -122,5 +142,5 @@ describe('CardValidationService', () => {
       const control = group.get('CVV')!;
       expect(service.cvvValidator()(control)).toBeNull();
     });
-  })
+  });
 });
