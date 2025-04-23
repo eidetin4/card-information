@@ -107,4 +107,16 @@ export class CardFormComponent {
 
     return '';
   }
+
+  getCvvErrorMessage(): string {
+    const cvvControl = this.cardDetailsForm.get('CVV');
+
+    if (cvvControl?.hasError('required')) {
+      return 'CVV er påkrevd.';
+    } else if (cvvControl?.hasError('invalidCVV')) {
+      return cvvControl?.getError('invalidCVV')?.message || 'Ugyldig CVV.';
+    }
+
+    return '';
+  }
 }
