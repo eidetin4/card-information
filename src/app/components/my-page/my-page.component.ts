@@ -1,6 +1,8 @@
 import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {CardDetailsService} from '../../services/card-details.service';
 import {GetCardDetails} from '../../models/card-details-models';
+import {CardFormComponent} from '../add-card-details/card-form.component';
+import {CardDetailsComponent} from '../card-details/card-details.component';
 
 @Component({
   selector: 'app-my-page',
@@ -14,11 +16,11 @@ export class MyPageComponent implements OnInit {
   protected readonly cards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
 
   ngOnInit(): void {
-    this.getAllCardDetails();
+    this.getAllCards();
   }
 
-  getAllCardDetails(): void {
-    this.cardInformationService.getAllCardDetails().subscribe({
+  getAllCards(): void {
+    this.cardInformationService.getAllCards().subscribe({
       next: (response: GetCardDetails[]): void => {
         this.cards.set(response);
       },

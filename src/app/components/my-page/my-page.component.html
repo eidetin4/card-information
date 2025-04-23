@@ -1,17 +1,30 @@
 <ng-container>
-  <h2>My page</h2>
+  <h2>Min side</h2>
+
+  <p>Navn: Navn Navnesen</p>
+  <p>Email: navn&#64;gmail.com</p>
 
   <div>
-    <h3>Your cards</h3>
+    <h3>Dine kort</h3>
 
-    <ul>
+    @if (cards().length > 0) {
       @for (card of cards(); track card.id) {
         @if (card.active) {
-          <li>{{ card.issuer }}: {{ card.cardDetails }}</li>
-        } @else {
-          <li style="color: gray">{{ card.issuer }}: {{ card.cardDetails }} (inactive)</li>
+          <div class="card active">
+            <div class="card-issuer">{{ card.issuer }}</div>
+            <div class="card-number">**** **** **** {{ card.cardDetails.toString().slice(-4) }}</div>
+            <div class="card-expiry">Utløper: {{ card.expiryDate }}</div>
+          </div>
         }
       }
-    </ul>
+    } @else {
+      <ng-template>
+        <p>Ingen betalingskort funnet.</p>
+      </ng-template>
+    }
+  </div>
+
+  <div>
+    <button>Legg til nytt kort</button>
   </div>
 </ng-container>
