@@ -46,9 +46,9 @@ export class CardFormComponent {
       issuer: ['', Validators.required]
     });
 
-    // this.cardDetailsForm.get('issuer')?.valueChanges.subscribe(() => {
-    //   this.cardDetailsForm.get('CVV')?.updateValueAndValidity();
-    // });
+    this.cardDetailsForm.get('issuer')?.valueChanges.subscribe(() => {
+      this.cardDetailsForm.get('CVV')?.updateValueAndValidity();
+    });
   }
 
   protected submitCard(): void {
