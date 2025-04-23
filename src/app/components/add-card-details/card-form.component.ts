@@ -114,7 +114,7 @@ export class CardFormComponent {
     if (cvvControl?.hasError('required')) {
       return 'CVV er påkrevd.';
     } else if (cvvControl?.hasError('invalidCVV')) {
-      return cvvControl?.getError('invalidCVV')?.message || 'Ugyldig CVV.';
+      return cvvControl?.getError('invalidCVV') || 'Ugyldig CVV.';
     }
 
     return '';
