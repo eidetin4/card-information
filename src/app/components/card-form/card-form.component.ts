@@ -1,8 +1,8 @@
-import {Component, EventEmitter, inject, Output, signal, WritableSignal} from '@angular/core';
+import {Component, EventEmitter, inject, input, InputSignal, Output, signal, WritableSignal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CardValidationService} from '../../services/card-validation.service';
 import {CardDetailsService} from '../../services/card-details.service';
-import {AddCardDetails} from '../../models/card-details-models';
+import {AddCardDetails, GetCardDetails} from '../../models/card-details-models';
 
 @Component({
   selector: 'app-card-form',
@@ -14,6 +14,7 @@ import {AddCardDetails} from '../../models/card-details-models';
 
 export class CardFormComponent {
 
+  existingCards: InputSignal<GetCardDetails[]> = input.required<GetCardDetails[]>();
   @Output() cardAdded: EventEmitter<void> = new EventEmitter<void>();
 
   private readonly formBuilder: FormBuilder = inject(FormBuilder);
@@ -44,15 +45,30 @@ export class CardFormComponent {
       ]],
       issuer: ['', Validators.required]
     });
+
+    // this.cardDetailsForm.get('issuer')?.valueChanges.subscribe(() => {
+    //   this.cardDetailsForm.get('CVV')?.updateValueAndValidity();
+    // });
   }
 
   protected submitCard(): void {
     if (this.cardDetailsForm.valid) {
+      const newCardNumber = this.cardDetailsForm.value.cardDetails.replace(/\s/g, '');
+
+      const duplicate = this.existingCards().some(
+        c => c.cardDetails.toString().replace(/\s/g, '') === newCardNumber
+      );
+
+      if (duplicate) {
+        this.errorMessage.set('Dette kortet er allerede registrert.');
+        return;
+      }
+
       this.isSubmitting.set(true);
 
       const newCard: AddCardDetails = {
         currency: this.cardDetailsForm.value.currency,
-        cardDetails: this.cardDetailsForm.value.cardDetails,
+        cardDetails: newCardNumber,
         expiryDate: this.cardDetailsForm.value.expiryDate,
         CVV: this.cardDetailsForm.value.CVV,
         issuer: this.cardDetailsForm.value.issuer
