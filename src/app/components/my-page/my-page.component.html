@@ -10,13 +10,28 @@
 
   <div class="mb-8">
     <h2 class="text-xl font-semibold mb-4">Dine aktive registrerte betalingskort</h2>
-    @if (activeCards().length > 0) {
-      @for (card of activeCards(); track card.id) {
-        <app-card-details [card]="card"></app-card-details>
+
+    <div class="card-list">
+      @if (activeCards().length > 0) {
+        @for (card of activeCards(); track card.id) {
+          <div class="card-item">
+            <button class="card-preview"
+                    (click)="toggleCardDetails(card.id)"
+                    aria-label="Vis kortdetaljer">
+              **** **** **** {{ getLastFourDigits(card.cardDetails) }}
+            </button>
+          </div>
+
+          @if (expandedCardId() === card.id) {
+            <div class="card-details">
+              <app-card-details [card]="card"></app-card-details>
+            </div>
+          }
+        }
+      } @else {
+        <p class="text-gray-600">Du har ingen aktive betalingskort registrert.</p>
       }
-    } @else {
-      <p class="text-gray-600">Du har ingen aktive betalingskort registrert.</p>
-    }
+    </div>
   </div>
 
   <div>

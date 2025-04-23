@@ -17,14 +17,15 @@ export class MyPageComponent implements OnInit {
 
   private cardInformationService: CardDetailsService = inject(CardDetailsService);
 
-  protected readonly activeCards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
-  protected readonly errorMessage: WritableSignal<string | null> = signal<string | null>(null);
+  protected activeCards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
+  protected errorMessage: WritableSignal<string | null> = signal<string | null>(null);
+  protected expandedCardId: WritableSignal<number | null> = signal<number | null>(null);
 
   ngOnInit(): void {
     this.getAllCards();
   }
 
-  getAllCards(): void {
+  protected getAllCards(): void {
     this.cardInformationService.getAllCards().subscribe({
       next: (response: GetCardDetails[]): void => {
         this.activeCards.set(response.filter((card: GetCardDetails) => card.active));
@@ -35,5 +36,14 @@ export class MyPageComponent implements OnInit {
         this.errorMessage.set('Kunne ikke hente kortinformasjon. Vennligst prøv igjen senere.');
       }
     });
+  }
+
+  protected toggleCardDetails(cardId: number): void {
+    this.expandedCardId.set(this.expandedCardId() === cardId ? null : cardId);
+  }
+
+  protected getLastFourDigits(cardNumber: number): string {
+    const cardNumberString: string = cardNumber.toString();
+    return cardNumberString.slice(-4);
   }
 }
