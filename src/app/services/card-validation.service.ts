@@ -18,16 +18,16 @@ export class CardValidationService {
 
       // Check if it contains only digits
       if (!/^\d+$/.test(value)) {
-        return { invalidCardNumber: 'Card number must contain only digits' };
+        return { invalidCardNumber: 'Kortnummer kan kun inneholde tall' };
       }
 
       // Check if it has the correct length based on the issuer
       if (value.startsWith('34') || value.startsWith('37')) {
         if (value.length !== 15) {
-          return { invalidCardNumber: 'AMEX card number must have 15 digits' };
+          return { invalidCardNumber: 'AMEX-kort må ha 15 siffer' };
         }
       } else if (value.length !== 16) {
-        return { invalidCardNumber: 'Card number must have 16 digits' };
+        return { invalidCardNumber: 'Kortnummer må ha 16 siffer' };
       }
 
       // Luhn algorithm validation (checksum)
@@ -49,7 +49,7 @@ export class CardValidationService {
         shouldDouble = !shouldDouble;
       }
 
-      return (sum % 10 === 0) ? null : { invalidCardNumber: 'Invalid card number' };
+      return (sum % 10 === 0) ? null : { invalidCardNumber: 'Ugyldig kortnummer' };
     }
   }
 
@@ -64,7 +64,7 @@ export class CardValidationService {
 
       // Check format (MM/YY)
       if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(control.value)) {
-        return { invalidExpiryDate: 'Format must be MM/YY' };
+        return { invalidExpiryDate: 'Ugyldig format. Formatet må være MM/YY' };
       }
 
       const [month, year] = value.split('/');
@@ -74,7 +74,7 @@ export class CardValidationService {
 
       // Check if the card is expired
       if (expiryDate < currentDate) {
-        return { expiredCard: 'Card is expired' };
+        return { expiredCard: 'Kortet er utgått' };
       }
 
       return null;
@@ -93,14 +93,14 @@ export class CardValidationService {
 
       // Check if it contains only digits
       if (!/^\d+$/.test(value)) {
-        return { invalidCVV: 'CVV must contain only digits' };
+        return { invalidCVV: 'CVV kan bare inneholde tall' };
       }
 
       // Check length based on issuer
       if (issuer === 'AMEX' && value.length !== 4) {
-        return { invalidCVV: 'AMEX CVV must have 4 digits' };
+        return { invalidCVV: 'AMEX CVV må ha 4 siffer' };
       } else if (issuer !== 'AMEX' && value.length !== 3) {
-        return { invalidCVV: 'CVV must have 3 digits' };
+        return { invalidCVV: 'CVV må ha 3 siffer' };
       }
 
       return null;

@@ -28,9 +28,7 @@ export class CardFormComponent {
   constructor() {
     this.cardDetailsForm = this.formBuilder.group({
       currency: ['NOK', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(3)
+        Validators.required
       ]],
       cardDetails: ['', [
         Validators.required,
@@ -88,7 +86,7 @@ export class CardFormComponent {
     if (cardNumberControl?.hasError('required')) {
       return 'Kortnummer er påkrevd.';
     } else if (cardNumberControl?.hasError('invalidCardNumber')) {
-      return 'Ugyldig kortnummer.';
+      return cardNumberControl?.getError('invalidCardNumber');
     }
 
     return '';
@@ -100,9 +98,9 @@ export class CardFormComponent {
     if (expiryDateControl?.hasError('required')) {
       return 'Utløpsdato er påkrevd.';
     } else if (expiryDateControl?.hasError('invalidExpiryDate')) {
-      return 'Ugyldig format. Må være MM/ÅÅ.';
+      return expiryDateControl?.getError('invalidExpiryDate');
     } else if (expiryDateControl?.hasError('expiredCard')) {
-      return 'Kortet er utløpt.';
+      return expiryDateControl?.getError('expiredCard');
     }
 
     return '';
@@ -114,7 +112,7 @@ export class CardFormComponent {
     if (cvvControl?.hasError('required')) {
       return 'CVV er påkrevd.';
     } else if (cvvControl?.hasError('invalidCVV')) {
-      return cvvControl?.getError('invalidCVV') || 'Ugyldig CVV.';
+      return cvvControl?.getError('invalidCVV');
     }
 
     return '';
