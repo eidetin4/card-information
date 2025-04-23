@@ -1,5 +1,13 @@
 # Card details
 
+This program is a simple Angular application that displays and adds card information. It is designed to be user-friendly and provides a clean interface for users to view their card details.
+
+## Technologies Used
+- Angular 19
+- TypeScript
+- HTML
+- CSS
+
 ## Prerequisites
 - Node.js (version 18 or higher)
 - npm (comes with Node.js)
@@ -31,3 +39,9 @@ npm install
 ng serve
 ```
 5. Open your browser and navigate to `http://localhost:4200/my-page`
+
+## Testing
+To run the tests, use the following command:
+```bash
+ng test
+```
