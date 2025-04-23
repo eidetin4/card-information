@@ -1,31 +1,33 @@
-# CardInformation
+# Card details
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.8.
+## Prerequisites
+- Node.js (version 18 or higher)
+- npm (comes with Node.js)
+- Angular CLI (version 19)
 
-## Development server
+To install Node.js and npm, follow the instructions for your operating system [here](https://nodejs.org/en/download/).
 
-To start a local development server, run:
+To install Angular CLI globally, run:
+```bash
+npm install -g @angular/cli
+```
 
+## Getting Started
+1. Clone the repository:
+```bash
+git clone 
+https://github.com/eidetin4/card-information.git
+```
+2. Navigate to the project directory:
+```bash
+cd card-information
+```
+3. Install the dependencies:
+```bash
+npm install
+```
+4. Run the application:
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
+5. Open your browser and navigate to `http://localhost:4200/my-page`
