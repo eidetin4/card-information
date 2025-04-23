@@ -1,3 +1,10 @@
+@if (errorMessage()) {
+  <div class="error-message">
+    <span>{{ errorMessage() }}</span>
+    <button (click)="errorMessage.set(null)" aria-label="Dismiss error">&times;</button>
+  </div>
+}
+
 <div class="container p-4">
   <h1 class="font-bold mb-6">Min side</h1>
 

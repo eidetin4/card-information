@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Output, signal, WritableSignal} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CardValidationService} from '../../services/card-validation.service';
 import {CardDetailsService} from '../../services/card-details.service';
@@ -21,9 +21,9 @@ export class CardFormComponent {
   private readonly cardDetailsService: CardDetailsService = inject(CardDetailsService);
 
   protected cardDetailsForm: FormGroup = new FormGroup({});
-  protected isSubmitting: boolean = false;
-  protected showSuccessMessage: boolean = false;
-  protected errorMessage: string = '';
+  protected isSubmitting: WritableSignal<boolean> = signal<boolean>(false);
+  protected showSuccessMessage: WritableSignal<boolean> = signal<boolean>(false);
+  protected readonly errorMessage: WritableSignal<string | null> = signal<string | null>(null);
 
   constructor() {
     this.cardDetailsForm = this.formBuilder.group({
@@ -48,7 +48,7 @@ export class CardFormComponent {
 
   submitCard(): void {
     if (this.cardDetailsForm.valid) {
-      this.isSubmitting = true;
+      this.isSubmitting.set(true);
 
       const newCard: AddCardDetails = {
         currency: this.cardDetailsForm.value.currency,
@@ -60,21 +60,20 @@ export class CardFormComponent {
 
       this.cardDetailsService.addCard(newCard).subscribe({
         next: () => {
-          this.showSuccessMessage = true;
-          this.errorMessage = '';
+          this.showSuccessMessage.set(true);
+          this.errorMessage.set(null);
           this.cardDetailsForm.reset({ currency: 'NOK', issuer: '' });
           this.cardAdded.emit();
 
           setTimeout(() => {
-            this.showSuccessMessage = false;
+            this.showSuccessMessage.set(false);
           }, 3000);
         },
-        error: (error: Error) => {
-          this.errorMessage = 'Det oppsto en feil ved registrering av kortet. Vennligst prøv igjen.';
-          console.error('Error adding card:', error.message);
+        error: () => {
+          this.errorMessage.set('Det oppsto en feil ved registrering av kortet. Vennligst prøv igjen.');
         },
         complete: () => {
-          this.isSubmitting = false;
+          this.isSubmitting.set(false);
         }
       });
     }

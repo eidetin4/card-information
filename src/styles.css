@@ -214,3 +214,37 @@ button:disabled {
 .space-y-4 > * + * {
   margin-top: 1rem;
 }
+
+/* Error message */
+.error-message {
+  background-color: #fdecea;
+  color: #b71c1c;
+  border: 1px solid #f5c6cb;
+  padding: 16px 24px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  animation: fadeIn 0.4s;
+  position: relative;
+}
+
+.error-message button {
+  background: none;
+  border: none;
+  color: #b71c1c;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 16px;
+  width: auto;
+  height: auto;
+  padding: 0 8px;
+  align-self: flex-start;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

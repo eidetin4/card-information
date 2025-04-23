@@ -18,6 +18,7 @@ export class MyPageComponent implements OnInit {
   private cardInformationService: CardDetailsService = inject(CardDetailsService);
 
   protected readonly activeCards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
+  protected readonly errorMessage: WritableSignal<string | null> = signal<string | null>(null);
 
   ngOnInit(): void {
     this.getAllCards();
@@ -27,9 +28,11 @@ export class MyPageComponent implements OnInit {
     this.cardInformationService.getAllCards().subscribe({
       next: (response: GetCardDetails[]): void => {
         this.activeCards.set(response.filter((card: GetCardDetails) => card.active));
+
+        this.errorMessage.set(null);
       },
-      error: (error: Error): void => {
-        console.error('Error fetching card details:', error.message);
+      error: (): void => {
+        this.errorMessage.set('Kunne ikke hente kortinformasjon. Vennligst prøv igjen senere.');
       }
     });
   }
