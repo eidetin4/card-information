@@ -1,7 +1,7 @@
 import {Component, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {CardDetailsService} from '../../services/card-details.service';
 import {GetCardDetails} from '../../models/card-details-models';
-import {CardFormComponent} from '../add-card-details/card-form.component';
+import {CardFormComponent} from '../card-form/card-form.component';
 import {CardDetailsComponent} from '../card-details/card-details.component';
 
 @Component({
