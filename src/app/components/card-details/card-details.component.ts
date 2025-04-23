@@ -10,7 +10,7 @@ export class CardDetailsComponent {
 
   card: InputSignal<GetCardDetails> = input.required<GetCardDetails>();
 
-  getLastFourDigits(cardNumber: number): string {
+  protected getLastFourDigits(cardNumber: number): string {
     const cardNumberString: string = cardNumber.toString();
     return cardNumberString.slice(-4);
   }

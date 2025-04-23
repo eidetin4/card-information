@@ -23,7 +23,7 @@ export class CardFormComponent {
   protected cardDetailsForm: FormGroup = new FormGroup({});
   protected isSubmitting: WritableSignal<boolean> = signal<boolean>(false);
   protected showSuccessMessage: WritableSignal<boolean> = signal<boolean>(false);
-  protected readonly errorMessage: WritableSignal<string | null> = signal<string | null>(null);
+  protected errorMessage: WritableSignal<string | null> = signal<string | null>(null);
 
   constructor() {
     this.cardDetailsForm = this.formBuilder.group({
@@ -46,7 +46,7 @@ export class CardFormComponent {
     });
   }
 
-  submitCard(): void {
+  protected submitCard(): void {
     if (this.cardDetailsForm.valid) {
       this.isSubmitting.set(true);
 
@@ -79,7 +79,7 @@ export class CardFormComponent {
     }
   }
 
-  getCardNumberErrorMessage(): string {
+  protected getCardNumberErrorMessage(): string {
     const cardNumberControl = this.cardDetailsForm.get('cardDetails');
 
     if (cardNumberControl?.hasError('required')) {
@@ -91,7 +91,7 @@ export class CardFormComponent {
     return '';
   }
 
-  getExpiryDateErrorMessage(): string {
+  protected getExpiryDateErrorMessage(): string {
     const expiryDateControl = this.cardDetailsForm.get('expiryDate');
 
     if (expiryDateControl?.hasError('required')) {
@@ -105,7 +105,7 @@ export class CardFormComponent {
     return '';
   }
 
-  getCvvErrorMessage(): string {
+  protected getCvvErrorMessage(): string {
     const cvvControl = this.cardDetailsForm.get('CVV');
 
     if (cvvControl?.hasError('required')) {
