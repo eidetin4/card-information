@@ -114,6 +114,22 @@ h2 {
   font-weight: 600;
 }
 
+/* Card components */
+.card-remove-btn {
+  width: auto;
+  padding: 0 0.5rem;
+  float: right;
+  margin-top: -2.5rem;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+  background: transparent;
+  color: #4b5563;
+}
+
+.inactive-card-text {
+  color: #6b7280 !important;
+}
+
 /* Form elements */
 input[type="text"],
 select {

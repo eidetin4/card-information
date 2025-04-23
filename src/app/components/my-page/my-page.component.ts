@@ -18,6 +18,7 @@ export class MyPageComponent implements OnInit {
   private cardInformationService: CardDetailsService = inject(CardDetailsService);
 
   protected activeCards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
+  protected inactiveCards: WritableSignal<GetCardDetails[]> = signal<GetCardDetails[]>([]);
   protected errorMessage: WritableSignal<string | null> = signal<string | null>(null);
   protected expandedCardId: WritableSignal<number | null> = signal<number | null>(null);
 
@@ -29,6 +30,7 @@ export class MyPageComponent implements OnInit {
     this.cardInformationService.getAllCardsWithoutDuplicates().subscribe({
       next: (response: GetCardDetails[]): void => {
         this.activeCards.set(response.filter((card: GetCardDetails) => card.active));
+        this.inactiveCards.set(response.filter((card: GetCardDetails) => !card.active));
 
         this.errorMessage.set(null);
       },

@@ -20,6 +20,9 @@
                     aria-label="Vis kortdetaljer">
               **** **** **** {{ getLastFourDigits(card.cardDetails) }}
             </button>
+            <button class="card-remove-btn" aria-label="Fjern kort">
+              &times;
+            </button>
           </div>
 
           @if (expandedCardId() === card.id) {
@@ -30,6 +33,33 @@
         }
       } @else {
         <p class="text-gray-600">Du har ingen aktive betalingskort registrert.</p>
+      }
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <div class="card-list">
+      @if (inactiveCards().length > 0) {
+        @for (card of inactiveCards(); track card.id) {
+          <div class="card-item inactive-card">
+            <button class="inactive-card-text card-preview"
+                    (click)="toggleCardDetails(card.id)"
+                    aria-label="Vis kortdetaljer">
+              **** **** **** {{ getLastFourDigits(card.cardDetails) }} (inaktiv)
+            </button>
+            <button class="card-remove-btn" aria-label="Fjern kort">
+              &times;
+            </button>
+          </div>
+
+          @if (expandedCardId() === card.id) {
+            <div class="card-details">
+              <app-card-details [card]="card"></app-card-details>
+            </div>
+          }
+        }
+      } @else {
+        <p class="text-gray-600">Du har ingen inaktive betalingskort.</p>
       }
     </div>
   </div>
