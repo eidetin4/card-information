@@ -81,4 +81,16 @@ export class CardFormComponent {
       });
     }
   }
+
+  getCardNumberErrorMessage(): string {
+    const cardNumberControl = this.cardDetailsForm.get('cardDetails');
+
+    if (cardNumberControl?.hasError('required')) {
+      return 'Kortnummer er påkrevd.';
+    } else if (cardNumberControl?.hasError('invalidCardNumber')) {
+      return 'Ugyldig kortnummer.';
+    }
+
+    return '';
+  }
 }
