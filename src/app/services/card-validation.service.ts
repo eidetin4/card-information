@@ -70,7 +70,7 @@ export class CardValidationService {
       const [month, year] = value.split('/');
 
       const currentDate: Date = new Date();
-      const expiryDate: Date = new Date(2000 + parseInt(year), parseInt(month) - 1, 1);
+      const expiryDate: Date = new Date(2000 + parseInt(year), parseInt(month), 0);
 
       // Check if the card is expired
       if (expiryDate < currentDate) {
@@ -94,6 +94,11 @@ export class CardValidationService {
       // Check if it contains only digits
       if (!/^\d+$/.test(value)) {
         return { invalidCVV: 'CVV kan bare inneholde tall' };
+      }
+
+      // Skip length validation if issuer is not selected yet
+      if (!issuer) {
+        return null;
       }
 
       // Check length based on issuer
