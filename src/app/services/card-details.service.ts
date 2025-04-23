@@ -16,11 +16,11 @@ export class CardDetailsService {
     return this.http.get<GetCardDetails[]>(this.baseUrl);
   }
 
-  getCard(cardId: number): Observable<GetCardDetails> {
-    const url: string = `${this.baseUrl}/${cardId}`;
-
-    return this.http.get<GetCardDetails>(url);
-  }
+  // getCard(cardId: number): Observable<GetCardDetails> {
+  //   const url: string = `${this.baseUrl}/${cardId}`;
+  //
+  //   return this.http.get<GetCardDetails>(url);
+  // }
 
   addCard(newCard: AddCardDetails): Observable<void> {
     return this.http.post<void>(this.baseUrl, newCard);
